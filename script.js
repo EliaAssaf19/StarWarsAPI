@@ -1,4 +1,4 @@
-const characters = document.querySelector(".character-list");
+let characters = document.getElementById("character-list");
 
 fetch('https://swapi.dev/api/people/?page=1')
 .then((response) => {
@@ -9,16 +9,35 @@ return response.json();
 }
 })
 .then((data) => {
-    console.log("data ", data)
-
-    for (let i = 0; i < data.results.length; i++) {
-
-        const characterList = document.createElement("li")
-        characterList.innerText = data.results[0].name;
-        characters.appendChild(characterList)
-    }
+    allResults = data.results;
+    displayCharacter(allResults);
+    console.log(allResults)
+    
 })
-
 .catch((error) => {
     console.error("error: ", error);
 })
+    
+function displayCharacter(arr) {
+    characters.innerHTML = "";
+
+arr.forEach((charInfo) => {
+
+
+    
+    const charName = document.createElement('h3');
+     charName.setAttribute("class","characterName");
+    const charHeight = document.createElement('p');
+    charHeight.setAttribute("class","characterHeight");
+    const charMass = document.createElement('p');
+    charMass.setAttribute("class","characterMass")
+
+    charName.innerText = `Name: ${charInfo.name}`;
+
+    characters.appendChild(charName);
+    
+    
+});    
+}
+
+
